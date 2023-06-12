@@ -1,0 +1,45 @@
+
+
+
+/* Slack Notification Set */
+def notifyProductionDeploy() {
+if (currentBuild.currentResult == 'SUCCESS') {
+    def message = "@here Build <${env.BUILD_URL}|${currentBuild.displayName}> " +
+        "${currentBuild.currentResult} deployed to the production"
+    slackSend(message: message, channel: '#dev', color: 'good', token: 'slack-int')
+} else {
+    def message = "@here Build <${env.BUILD_URL}|${currentBuild.displayName}> " +
+        "${currentBuild.currentResult} deployed to the production"
+    slackSend(message: message, channel: '#dev', color: 'danger', token: 'slack-int')
+}
+}
+pipeline {
+    agent any
+    tools{
+        
+        maven 'maven'
+    }
+
+    stages {
+        stage('checkout') {
+            steps {
+                git branch: 'main', url: 'https://github.com/bharah08/webapp.git'
+            }
+        }
+         stage('maven build') {
+            steps {
+                sh 'mvn clean install'
+            }
+        }
+        stage('artifact upload to s3'){
+            steps{
+                sh 'aws s3 cp ${WORKSPACE}/target/01-maven-web-app.war s3://mybuk.con'
+            }
+        }
+        stage('slack notify'){
+            steps{
+                notifyProductionDeploy()
+            }
+        }
+    }
+}
