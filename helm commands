@@ -1,0 +1,12 @@
+to create first chart :-
+$ helm create firstchart
+to check helm charts :-
+$ helm ls
+to install helm chart :-
+$ helm install <release-name> <chart-name>
+$ helm install release1 firstchart
+if you change anything in charts yamls then use upgrade command :--
+$ helm upgrade rlease1 firstchart
+if you want to rollback to privious version :-
+$ helm rollback <chart name> 1
+$ helm rollback firstchart 1
