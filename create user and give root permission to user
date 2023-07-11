@@ -1,0 +1,16 @@
+creating user :-
+$ usermod bharath
+$ passwd bharath
+switching to the user :-
+$ sudo -su bharath
+u will get error like this bharath  is not in the sudoers file. This incident will be reported.so will do like this
+then switch to root first need to modify sudoers file
+$ sudo su -
+$ sudo nano /etc/sudoers
+bharath ALL=(ALL:ALL) ALL
+then exit from root:-
+switch to user :-
+$ sudo -su bharath
+$ sudo su -
+done..............
+  
