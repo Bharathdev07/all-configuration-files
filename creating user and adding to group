@@ -1,0 +1,9 @@
+ creating user:-
+$ useradd bharath
+$ passwd bharath
+creating group :-
+$ groupadd devops
+adding user to group:-
+$ usermod -a -G devops bharath
+removing user from group:-
+$ gpasswd -d bharath devops
