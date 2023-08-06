@@ -3,9 +3,6 @@ pipeline {
     tools{
         maven 'maven'
     }
-  environment{
-        SCANNER_HOME= tool 'sonar'
-    }
     stages {
         stage('github') {
             steps {
@@ -17,15 +14,19 @@ pipeline {
             steps {
                 sh 'mvn clean package'
             }
-        }
-            steps {
-                withSonarQubeEnv('sonar'){
-                   sh ''' $SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=Shopping-Cart \
-                   -Dsonar.java.binaries=. \
-                   -Dsonar.projectKey=Shopping-Cart '''
-               }
+        }  
+stage('SonarQube analysis') {
+            environment {
+            scannerHome = tool 'Valaxy-SonarScanner'
             }
-        } 
+        steps { 
+            echo '------------------- Sonar Started -------------'
+        withSonarQubeEnv('Valaxy-SonarQube-Server') { // If you have configured more than one global server connection, you can specify its name
+            sh "${scannerHome}/bin/sonar-scanner"
+    }
+    echo '------------------- Sonar Analysis Completed -------------'
+  }
+    }
        
           
            stage('artifact upload to nexus') {
