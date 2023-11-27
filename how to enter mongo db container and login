@@ -1,0 +1,2 @@
+$ docker exec -it containerid or name sh
+$ mongosh -u "root" -p "root"
