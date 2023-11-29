@@ -1,0 +1,30 @@
+ENV mongodb://<servicename>:27017/<db name>
+
+
+ENV mongodb//mongo:27017/mydb
+
+  #################################################
+
+  docker compose for backend and mongodb;---------------------
+
+  version: '3'
+services:
+
+  backend:
+    image: back
+    ports:
+      - "4000:3000"
+    environment:
+      APP_NAME: LearnDocker
+      PORT: 3000
+      DB_URI: mongodb://mongodb:27017/dockerlearn
+    depends_on:
+      - mongodb
+
+  mongodb:
+    image: mongo:latest
+    volumes:
+      - mongo-data:/data/db  # Mount the volume for MySQL data storage
+
+volumes:
+  mongo-data:
