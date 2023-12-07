@@ -1,0 +1,35 @@
+pipeline {
+    agent any
+    
+    environment {
+        DEPLOY_HOST = '54.172.147.151'
+        DEPLOY_USER = 'ubuntu'
+        COMPOSE_FILE = 'docker-compose.yml'
+    }
+
+    stages {
+        stage('Clean Workspace') {
+            steps {
+                cleanWs()
+            }
+        }
+
+   
+
+        stage('Deploy') {
+            steps {
+                script {
+                    // Start an SSH agent and add credentials for deployment
+                    sshagent(credentials: ['dev-server-deployment']) {
+                        // Connect to the deployment host
+                        sshCommand = "ssh -o StrictHostKeyChecking=no ${DEPLOY_USER}@${DEPLOY_HOST}"
+
+                        // Build and deploy using docker-composesh 
+                        sh "$sshCommand   git -c /home/ubuntu/VCG-AutoCRM-backend pull origin dev  || true"
+                        sh "$sshCommand docker-compose -f VCG-AutoCRM-backend/${COMPOSE_FILE} up -d"
+                    }
+                }
+            }
+        }
+    }
+}
