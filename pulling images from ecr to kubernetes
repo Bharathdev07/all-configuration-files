@@ -1,0 +1,19 @@
+Step 1: Get ECR login password:--
+In the prerequisite section, we ran a command to authenticate with AWS ECR. Use the first part of that command to get the ECR login password
+
+$ aws ecr get-login-password --region <region_name>
+Step 2: Create kubectl secret:-
+Next, we will create a kubectl secret using the password we received in the previous section. Run the following command to create a secret.
+
+$ kubectl create secret docker-registry regcred \
+--docker-server=<registry url> \
+--docker-username=AWS \
+--docker-password=<password from last step> \
+--docker-email=<AWS account email ID>
+
+Replace the following values:--
+
+<registry url> with the registry URL. It will be of the following form. Refer to the link in the prerequisites for steps on obtaining the account ID.
+<aws_account_id>.dkr.ecr.<aws_region>.amazonaws.com
+<password from last step> that you received in the last step
+<AWS account email ID> with the email ID for your AWS account.
