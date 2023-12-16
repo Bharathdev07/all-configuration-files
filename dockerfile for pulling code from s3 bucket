@@ -1,0 +1,8 @@
+FROM python:3.10-bullseye
+WORKDIR /app
+RUN apt update
+RUN apt install awscli -y
+COPY .env .env
+RUN aws s3 cp s3://python-doc/  /app --recursive
+RUN pip install -r requirements.txt
+CMD ["python3","devops/manage.py","runserver","0.0.0.0:5000"]
