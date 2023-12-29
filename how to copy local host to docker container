@@ -1,0 +1,16 @@
+docker cp <source-path>  <container name or id>:path of container
+
+
+$ docker cp py.txt webapp:/opt/
+
+
+  --------------------------------------------
+
+
+
+  how to copy docker container to local host :--
+
+
+  $ docker cp <container name>:/path      localhost <.>
+
+ $ docker cp nginx:/opt/text .
