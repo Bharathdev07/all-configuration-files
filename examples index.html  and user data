@@ -1,0 +1,16 @@
+#!/bin/bash
+yum install httpd -y
+service httpd start
+chkconfig httpd on
+mkdir /var/www/html/hi
+echo "Hi there..you reached to right backend ec2" REPLACE_THIS_WITH_GREATER_THAN_SIGN /var/www/html/hi/index.html
+echo "Configured successfully"
+
+2. Userdata from Webserver 2
+#!/bin/bash
+yum install httpd -y
+service httpd start
+chkconfig httpd on
+mkdir /var/www/html/bye
+echo "Bye from ec2" REPLACE_THIS_WITH_GREATER_THAN_SIGN  /var/www/html/bye/index.html
+echo "Configured successfully"
