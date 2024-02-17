@@ -4,6 +4,15 @@ next
 $ mkfs -t xfs /dev/xvdf
 $ mkdir mydir
 $ mount /dev/xvdf /mydir/
+
+if reboot instance mount will be gone so to avoid that we have to use this  process
+
+$ cat etc/mtab      ( after that command copy volume format system)
+$ vi etc/fstab       (paste here which we copied from above)
+
+>> how to atatch volume existing mount directory :--
+
+$ xfs_growfs -d /dev/xvdf 
 -----------
 how to unmount storage
 umount /dev/xvdf
