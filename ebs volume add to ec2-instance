@@ -11,7 +11,7 @@ $ cat etc/mtab      ( after that command copy volume format system)
 $ vi etc/fstab       (paste here which we copied from above)
 
 >> how to atatch volume existing mount directory :--
-
+$ growpart /dev/xvda 1 ( for root volume only)
 $ xfs_growfs -d /dev/xvdf 
 -----------
 how to unmount storage
