@@ -3,7 +3,7 @@ after add ebs volume to ec2 instance, we need to mount the volume in instance
 next
 $ mkfs -t xfs /dev/xvdf
 $ mkdir mydir
-$ mount /dev/xvdf /mydir/
+$ mount /dev/xvdf mydir/
 
 if reboot instance mount will be gone so to avoid that we have to use this  process
 
